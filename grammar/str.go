@@ -44,6 +44,7 @@ func threeSum(nums []int) [][]int {
 			break
 		}
 
+		// 去重：如果此数已经选取过，
 		if i > 0 && (nums[i] == nums[i-1]) {
 			continue
 		}
@@ -55,10 +56,11 @@ func threeSum(nums []int) [][]int {
 				res = append(res, []int{nums[i], _right, _left})
 				left += 1
 				right -= 1
+				// 去重：第二个数和第三个数也不重复选取
 				for (left < right) && (nums[left] == nums[left-1]) {
 					left += 1
 				}
-
+				// 去重：第二个数和第三个数也不重复选取
 				for (left < right) && (nums[right] == nums[right+1]) {
 					right -= 1
 				}

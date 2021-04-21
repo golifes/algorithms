@@ -3,3 +3,13 @@ google api设计
 https://www.bookstack.cn/read/API-design-guide/API-design-guide-03-%E8%B5%84%E6%BA%90%E5%91%BD%E5%90%8D.md
 
 the-site-reliability-workbook 2
+
+左右移动逼近O(N):谁小谁移动,典型的栗子就是盛水最多的容器的题
+
+
+2021/04/21:
+    target:
+        1:弄明白mysql的innodb:数据类型占用的空间,中文存储占用空间,转换
+        2:Bitmap和布隆过滤器(Bloom Filter)的区别和实现
+        https://zhuanlan.zhihu.com/p/40833264
+

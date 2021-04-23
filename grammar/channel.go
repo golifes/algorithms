@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"runtime/pprof"
-	"sync"
+	"time"
 )
 
 func main() {
@@ -13,16 +13,7 @@ func main() {
 	//<-ch
 
 	//leak()
-	var wg sync.WaitGroup
-	for i := 0; i < 10; i++ {
-		wg.Add(1)
-		go func() {
-			wg.Done()
-			fmt.Println(i)
-		}()
-	}
-
-	wg.Wait()
+	finish()
 }
 
 func leak() {
@@ -53,10 +44,16 @@ func leak() {
 	defer pprof.StopCPUProfile()
 }
 
-func fo() {
-	for i := 0; i < 10; i++ {
-		go func() {
-			fmt.Println(i)
-		}()
+func finish() {
+	ch := make(chan bool, 1)
+	go func() {
+		ch <- true
+	}()
+
+	select {
+	case result := <-ch:
+		fmt.Println(result)
+	case <-time.After(1):
+		fmt.Println("timeout")
 	}
 }

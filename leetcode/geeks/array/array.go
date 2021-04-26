@@ -77,8 +77,20 @@ func plusOne(digits []int) []int {
 	}
 	return nil
 }
+func reverse(x int) int {
+
+	var num int
+	for x != 0 {
+		num = num*10 + x%10
+		x = x / 10
+	}
+
+	return num
+}
 
 func main() {
-	area := plusOne([]int{9, 9})
-	println(area)
+	//area := plusOne([]int{9, 9})
+	//println(area)
+	i := reverse(123)
+	fmt.Println(i)
 }

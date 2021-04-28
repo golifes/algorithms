@@ -8,20 +8,28 @@ import (
 	"net/http"
 )
 
-var group singleflight.Group
-
 func main() {
 	eng := gin.Default()
 
-	eng.GET("/test", func(c *gin.Context) {
-		key := "gin"
-		do, err, shared := group.Do(key, func() (interface{}, error) {
-			fmt.Println("settings data")
-			return "data", nil
-		})
-		fmt.Println(do.(string), err, shared)
-		c.JSON(http.StatusOK, "ok")
-	})
+	req := Req{group: singleflight.Group{}}
+	eng.GET("/test", req.test)
 	pprof.Register(eng)
 	eng.Run(":8081")
 }
+
+type Req struct {
+	group singleflight.Group
+}
+
+func (r *Req) test(c *gin.Context) {
+	do, err, shared := r.group.Do(c.Request.RequestURI, func() (interface{}, error) {
+		fmt.Println("settings data")
+		return "data", nil
+	})
+	fmt.Println(do.(string), err, shared)
+	c.JSON(http.StatusOK, "ok")
+}
+
+/*
+
+ */

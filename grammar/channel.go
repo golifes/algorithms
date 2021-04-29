@@ -49,11 +49,14 @@ func finish() {
 	go func() {
 		ch <- true
 	}()
-
+	time.Sleep(1)
 	select {
 	case result := <-ch:
 		fmt.Println(result)
-	case <-time.After(1):
-		fmt.Println("timeout")
+	//case <-time.After(1):
+	//	fmt.Println("timeout")
+	default:
+		println("error")
 	}
+	//channel 什么时候关闭
 }

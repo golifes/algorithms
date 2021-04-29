@@ -24,3 +24,8 @@ uber/ratelimit
 vegas CoDel  bbr
 
 https://www.qiuwenqi.com/2020-12-04-golang-concurrency-sync-pool.html
+
+
+问题:
+    https://www.qiuwenqi.com/2020-12-04-golang-concurrency-sync-pool.html
+    内存泄漏: buffer.reset这块 这些大的 Buffer 可能不被回收，而是会一直占用很大的空间，这属于内存泄漏的问题

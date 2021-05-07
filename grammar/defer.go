@@ -29,6 +29,27 @@ func f() (r int) {
 	先给返回值赋值，然后调用defer表达式，最后才是返回到调用函数中。
 */
 func main() {
-	result := f()
-	fmt.Println(result)
+	//result := f()
+	//fmt.Println(result)
+
+	//startAt := time.Now()
+	//
+	//defer func(t time.Time) {
+	//	fmt.Println(time.Since(startAt))
+	//}(startAt)
+	//time.Sleep(time.Second)
+
+	defer fmt.Println("in main")
+
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println(err)
+		}
+	}()
+
+	//if err := recover(); err != nil {
+	//	fmt.Println(err)
+	//}
+
+	panic("unknown err")
 }

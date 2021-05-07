@@ -28,5 +28,12 @@ func echo() int {
 	*/
 	defer fmt.Println(i)
 
+	{
+		defer fmt.Println("defer runs")
+		fmt.Println("block ends")
+	}
+
+	fmt.Println("main ends")
+
 	return i
 }

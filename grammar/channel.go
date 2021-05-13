@@ -5,16 +5,23 @@ import (
 	"os"
 	"runtime"
 	"runtime/pprof"
+	"runtime/trace"
 	"time"
 )
 
+/*
+	https://zhuanlan.zhihu.com/p/32529039
+*/
 func main() {
 	//var ch chan struct{}
 	//ch <- struct{}{}
 	//<-ch
 
-	leak()
+	//leak()
 	//finish()
+	//traceX()
+	nilChannel()
+
 }
 
 func leak() {
@@ -68,4 +75,35 @@ func finish() {
 		println("error")
 	}
 	//channel 什么时候关闭
+}
+
+func traceX() {
+	trace.Start(os.Stderr)
+	defer trace.Stop()
+
+	ch := make(chan string)
+
+	go func() {
+		ch <- "go搞事"
+	}()
+
+	<-ch
+}
+
+func nilChannel() {
+	//data := make(chan int, 1)
+	//
+	//for value := range data {
+	//	fmt.Println(value)
+	//}
+	//trace.Start(os.Stderr)
+	//defer trace.Stop()
+
+	ch := make(chan string)
+	f := func() {
+		ch <- "Go语言编程之旅"
+	}
+	//f()  channel必须和goroutine搭配？？？？
+	go f()
+	<-ch
 }

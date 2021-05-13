@@ -29,3 +29,18 @@ https://www.qiuwenqi.com/2020-12-04-golang-concurrency-sync-pool.html
 问题:
     https://www.qiuwenqi.com/2020-12-04-golang-concurrency-sync-pool.html
     内存泄漏: buffer.reset这块 这些大的 Buffer 可能不被回收，而是会一直占用很大的空间，这属于内存泄漏的问题
+
+
+
+    值得注意的是，这个例子中生产端和接受端都没有关闭消息数据的channel，channel在没有任何goroutine引用的时候会自行关闭，而不需要显示进行关闭。
+    goroutine 是go func(){}()这样的操作
+    func main() {
+         trace.Start(os.Stderr)
+         defer trace.Stop()
+
+         ch := make(chan string)
+         go func() {
+          ch <- "Go语言编程之旅"
+         }()
+         <-ch
+    }
